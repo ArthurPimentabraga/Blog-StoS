@@ -1,11 +1,24 @@
 <%- include ('./partials/header.ejs')%>
-<%- include ('./partials/navbar.ejs')%>
+<%- include ('./partials/home_navbar.ejs')%>
 
 <main>
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1>INDEX</h1>
+                <div class="jumbotron">
+                    <h1>StoS - Students to Students</h1>
+                    <p>Transmitting my knowledge</p>
+                </div>
+                <% articles.forEach(article => { %>
+                <div class="card cardArticles">
+                    <div class="card-header">
+                        <h3><%= article.title %></h3>
+                    </div>
+                    <div class="card-body">
+                        <a href="/<%= article.slug %>" class="btn btn-success">Ler Artigo</a>
+                    </div>
+                </div>
+                <% }) %>
             </div>
         </div>
     </div>

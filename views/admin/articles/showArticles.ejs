@@ -5,8 +5,8 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h4>Categorias cadastradas</h4>
-                <a href="/admin/categories/create" class="btn btn-success">Criar categoria</a>
+                <h4>Artigos</h4>
+                <a href="/admin/articles/create" class="btn btn-success">Criar artigo</a>
                 <br><br>
                 <table class="table table-dark table-bordered">
                     <thead>
@@ -14,19 +14,20 @@
                             <th>Id</th>
                             <th>Título</th>
                             <th>Slug</th>
+                            <th>Categoria</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <% categories.forEach(category => { %>
+                        <% articles.forEach(article => { %>
                         <tr>
-                            <td><%= category.id %></td>
-                            <td><%= category.title %></td>
-                            <td><%= category.slug %></td>
+                            <td><%= article.id %></td>
+                            <td><%= article.title %></td>
+                            <td><%= article.slug %></td>
+                            <td><%= article.category.title %></td>
                             <td>
-                                <a href="/admin/categories/edit/<%= category.id %>" class="btn btn-warning">Atualizar</a>
-                                <form action="/admin/categories/delete" method="POST" style="display: inline;" onsubmit="confirmDelete(event, this)">
-                                    <input type="hidden" name="id" value="<%= category.id %>">
+                                <form action="/admin/articles/delete" method="POST" onsubmit="confirmDelete(event, this)">
+                                    <input type="hidden" name="id" value="<%= article.id %>">
                                     <button class="btn btn-danger">Deletar</button>
                                 </form>
                             </td>
@@ -44,7 +45,7 @@
 <script>
     function confirmDelete(event, form) {
         event.preventDefault();
-        let decision = confirm("Você realmente deseja deletar essa categoria?");
+        let decision = confirm("Você realmente deseja deletar este artigo?");
         if (decision) {
             form.submit();
         }

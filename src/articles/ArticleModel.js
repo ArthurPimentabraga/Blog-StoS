@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 const connection = require("./../../database/connection");
-const categoryModel = require("./../categories/CategoryModel");
+const CategoryModel = require("./../categories/CategoryModel");
 
 const ArticleModel = connection.define('article', {
     title: {
@@ -16,5 +16,6 @@ const ArticleModel = connection.define('article', {
     }
 });
 
-categoryModel.hasMany(ArticleModel); //Relacionamento (Cada categoria contém vários artigos) 
+CategoryModel.hasMany(ArticleModel); //Relacionamento (Cada categoria contém vários artigos) 
+ArticleModel.belongsTo(CategoryModel);
 module.exports = ArticleModel;

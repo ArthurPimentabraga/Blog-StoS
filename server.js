@@ -13,7 +13,7 @@ const CategoryModel = require("./src/categories/CategoryModel");
 app.set("view engine", "ejs");
 
 //Static
-app.use(express.static("public"));
+app.use(express.static('public'));
 
 //Body-Parser
 app.use(bodyParser.urlencoded({extended: false}));
@@ -31,7 +31,26 @@ connection
 
 //Routes
 app.get("/", (req, res) => {
-    res.render("index");
+    ArticleModel.findAll().then(articles => {
+        res.render('index', {articles: articles});
+    });
+});
+
+app.get("/:slug", (req, res) => {
+    let slug = req.params.slug;
+
+    ArticleModel.findOne({
+        where: {slug: slug}
+    }).then(article => {
+        if (article != undefined) {
+            res.render('article', {article: article});
+        }
+        else{
+            res.redirect('/');
+        }
+    }).catch(() => {
+        res.redirect('/');
+    });
 });
 
 app.use("/" , articlesController);
