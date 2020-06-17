@@ -30,10 +30,45 @@ connection
     })
 
 //Routes
-app.get("/", (req, res) => {
-    ArticleModel.findAll().then(articles => {
-        res.render('index', {articles: articles});
-    });
+app.get("/:num?", (req, res) => {
+    let page = req.params.num;
+    let offset = 0;
+
+    if (!page) {
+        page = 1;
+    }
+
+    if (isNaN(page) || page == 1) {
+        offset = 0;
+    }
+    else{
+        offset = (parseInt(page) - 1) * 4;
+    }
+
+    ArticleModel.findAndCountAll({
+        limit: 4,
+        offset: offset,
+        order: [['id', 'DESC']],
+    }).then(articles => {
+
+        let next;
+        if (offset + 4 >= articles.count) {
+            next = false;
+        }
+        else{
+            next = true;
+        }
+
+        let result = {
+            page: parseInt(page),
+            next: next,
+            articles: articles
+        }
+
+        CategoryModel.findAll().then(categories => {
+            res.render('index', {result: result, categories: categories});
+        });
+    })
 });
 
 app.get("/:slug", (req, res) => {
@@ -48,6 +83,21 @@ app.get("/:slug", (req, res) => {
         else{
             res.redirect('/');
         }
+    }).catch(() => {
+        res.redirect('/');
+    });
+});
+
+app.get("/category/:slug", (req, res) => {
+    let slug = req.params.slug;
+
+    CategoryModel.findOne({
+        where: {slug: slug},
+        include: [{model: ArticleModel}]
+    }).then(category => {
+        CategoryModel.findAll().then(categories => {
+            res.render('articlesForCategory', {articles: category.articles, categories: categories});
+        });
     }).catch(() => {
         res.redirect('/');
     });

@@ -23,11 +23,61 @@ footer p{
 }
 
 /*Index*/
+#flexArticles{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .cardArticles{
     margin-bottom: 30px;
+    width: 20vw;
+    height: 200px;
+}
+
+.cardArticles a{
+    position: absolute;
+    bottom: 0px;
+    margin-bottom: 20px;
 }
 
 .jumbotron{
     background-color: #353535;
     color: #ffffff;
+}
+
+.jumbotron button{
+    background-color: #ffffff;
+    color: #353535;
+}
+
+
+/* Media Queries */
+@media only screen and (max-width: 992px) {
+    .container{
+
+    }
+
+    .cardArticles{
+        margin-bottom: 30px;
+        width: 35vw;
+        height: auto;
+    }
+
+    .cardArticles a{
+        position: relative;
+        bottom: auto;
+        margin-bottom: auto;
+    }
+}
+
+@media only screen and (max-width: 590px) {
+    .container{
+
+    }
+
+    .cardArticles{
+        width: 90vw;
+    }
 }

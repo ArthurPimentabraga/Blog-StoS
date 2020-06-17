@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div id="flexArticles">
-                    <% result.articles.rows.forEach(article => { %>
+                    <% articles.forEach(article => { %>
                         <div class="card cardArticles">
                             <div class="card-header">
                                 <h3><%= article.title %></h3>
@@ -30,16 +30,6 @@
                             </div>
                         </div>
                     <% }) %>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <% if(result.next) { %>
-                            <a href="/<%= result.page + 1 %>" class="btn btn-dark" style="float: right;">Next -></a>
-                        <% } %>
-                        <% if(result.page >= 2) { %>
-                            <a href="/<%= result.page - 1 %>" class="btn btn-dark" style="float: left;"><- Previd</a>
-                        <% } %>
-                    </div>
                 </div>
             </div>
         </div>
