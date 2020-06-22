@@ -3,8 +3,9 @@ const router = express.Router();
 const ArticleModel = require('./ArticleModel');
 const CategoryModel = require('../categories/CategoryModel');
 const slugify = require('slugify');
+const adminAuth = require('../middlewares/adminAuth');
 
-router.get("/admin/articles", (req, res) => {
+router.get("/admin/articles", adminAuth , (req, res) => {
     ArticleModel.findAll({
         order: [['id', 'DESC']],
         include: [{ model: CategoryModel }],
@@ -13,7 +14,7 @@ router.get("/admin/articles", (req, res) => {
     })
 });
 
-router.get("/admin/articles/create", (req, res) => {
+router.get("/admin/articles/create", adminAuth , (req, res) => {
     CategoryModel.findAll().then(categories => {
         res.render('admin/articles/createArticle', {categories: categories})
     })
@@ -54,7 +55,7 @@ router.post("/admin/articles/delete", (req, res) => {
     }
 });
 
-router.get("/admin/articles/edit/:id", (req, res) => {
+router.get("/admin/articles/edit/:id", adminAuth , (req, res) => {
     let id = req.params.id;
 
     if (isNaN(id)) {

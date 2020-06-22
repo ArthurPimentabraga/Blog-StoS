@@ -1,0 +1,27 @@
+<%- include ('../../partials/header.ejs')%>
+<%- include ('../../partials/navbar.ejs')%>
+
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Login</h2>
+                    </div>
+                    <div class="card-body">
+                        <form action="/users/authenticate" method="POST">
+                            <label>E-mail: </label>
+                            <input type="email" name="email" class="form-control" placeholder="exemplo@gmail.com"><br>
+                            <label>Senha: </label>
+                            <input type="password" name="password" class="form-control" placeholder="*****"><br>
+                            <button class="btn btn-success float-right">Entrar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include ('../../partials/footer.ejs')%>

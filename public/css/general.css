@@ -55,10 +55,6 @@ footer p{
 
 /* Media Queries */
 @media only screen and (max-width: 992px) {
-    .container{
-
-    }
-
     .cardArticles{
         margin-bottom: 30px;
         width: 35vw;
@@ -73,10 +69,6 @@ footer p{
 }
 
 @media only screen and (max-width: 590px) {
-    .container{
-
-    }
-
     .cardArticles{
         width: 90vw;
     }

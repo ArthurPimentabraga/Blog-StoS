@@ -1,13 +1,21 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const session = require('express-session');
 const connection = require("./database/connection");
 //Controllers
 const articlesController = require("./src/articles/ArticlesController");
 const categoriesController = require("./src/categories/CategoriesController");
+const usersController = require("./src/users/UsersController");
 //Models
 const ArticleModel = require("./src/articles/ArticleModel");
 const CategoryModel = require("./src/categories/CategoryModel");
+const UsersModel = require("./src/users/UserModel");
+
+//Session
+app.use(session({
+    secret: "afdklnvoweinvoiclkxzcm", cookie: { maxAge: 7200000 }
+}));
 
 //View engine
 app.set("view engine", "ejs");
@@ -33,6 +41,7 @@ connection
 app.get("/:num?", (req, res) => {
     let page = req.params.num;
     let offset = 0;
+    let verifySession = req.session.user;
 
     if (!page) {
         page = 1;
@@ -66,7 +75,7 @@ app.get("/:num?", (req, res) => {
         }
 
         CategoryModel.findAll().then(categories => {
-            res.render('index', {result: result, categories: categories});
+            res.render('index', {result: result, categories: categories, verifySession: verifySession});
         });
     })
 });
@@ -105,6 +114,7 @@ app.get("/category/:slug", (req, res) => {
 
 app.use("/" , articlesController);
 app.use("/" , categoriesController);
+app.use("/" , usersController);
 
 //Server
 app.listen(8080, (error) => {

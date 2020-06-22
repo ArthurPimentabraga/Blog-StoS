@@ -2,14 +2,15 @@ const express = require('express');
 const router = express.Router();
 const CategoryModel = require('./CategoryModel');
 const slugify = require('slugify');
+const adminAuth = require('../middlewares/adminAuth');
 
-router.get("/admin/categories", (req, res) => {
+router.get("/admin/categories", adminAuth , (req, res) => {
     CategoryModel.findAll().then(categories => {
         res.render('admin/categories/showCategories', {categories: categories})
     });
 });
 
-router.get("/admin/categories/create", (req, res) => {
+router.get("/admin/categories/create", adminAuth , (req, res) => {
     res.render('admin/categories/createCategories');
 });
 
@@ -50,7 +51,7 @@ router.post("/admin/categories/delete", (req, res) => {
     }
 });
 
-router.get("/admin/categories/edit/:id", (req, res) => {
+router.get("/admin/categories/edit/:id", adminAuth , (req, res) => {
     let id = req.params.id;
 
     if (isNaN(id)) {
@@ -69,7 +70,7 @@ router.get("/admin/categories/edit/:id", (req, res) => {
     })
 });
 
-router.post("/admin/categories/update", (req, res) => {
+router.post("/admin/categories/update", adminAuth , (req, res) => {
     let id = req.body.id;
     let title = req.body.title;
 
