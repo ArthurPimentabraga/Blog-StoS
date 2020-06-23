@@ -11,7 +11,7 @@ const usersController = require("./src/users/UsersController");
 const ArticleModel = require("./src/articles/ArticleModel");
 const CategoryModel = require("./src/categories/CategoryModel");
 const UsersModel = require("./src/users/UserModel");
-
+ 
 //Session
 app.use(session({
     secret: "afdklnvoweinvoiclkxzcm", cookie: { maxAge: 7200000 }
