@@ -1,5 +1,10 @@
 <%- include ('./partials/header.ejs')%>
-<%- include ('./partials/home_navbar.ejs')%>
+
+<% if(verifySession == undefined) { %>
+    <%- include ('./partials/home_navbar.ejs')%>
+<% } else { %>
+    <%- include ('./partials/navbar.ejs')%>
+<% } %>
 
 <main>
     <div class="container">
@@ -13,12 +18,14 @@
                             Selecione uma categoria
                         </button>
                         <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/1">Todas</a>
                             <% categories.forEach(category => { %>
                                 <a class="dropdown-item" href="/category/<%= category.slug %>"><%= category.title %></a>
                             <% }) %>
                         </div>
                     </div>
                 </div>
+                <h4><%= slug %></h4><br>
                 <div id="flexArticles">
                     <% articles.forEach(article => { %>
                         <div class="card cardArticles">
@@ -26,7 +33,7 @@
                                 <h3><%= article.title %></h3>
                             </div>
                             <div class="card-body">
-                                <a href="/<%= article.slug %>" class="btn btn-success">Ler Artigo</a>
+                                <a href="/article/<%= article.slug %>" class="btn btn-success">Ler Artigo</a>
                             </div>
                         </div>
                     <% }) %>

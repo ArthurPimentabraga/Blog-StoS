@@ -24,7 +24,10 @@
                             <td><%= user.name %></td>
                             <td><%= user.email %></td>
                             <td>
-                                <button class="btn btn-warning">:)</button>
+                                <form action="/admin/users/delete" method="POST" style="display: inline;" onsubmit="confirmDelete(event, this)">
+                                    <input type="hidden" name="userId" value="<%= user.id %>">
+                                    <button class="btn btn-danger">Deletar</button>
+                                </form>
                             </td>
                         </tr>
                         <% }) %>
@@ -40,7 +43,7 @@
 <script>
     function confirmDelete(event, form) {
         event.preventDefault();
-        let decision = confirm("Você realmente deseja deletar essa categoria?");
+        let decision = confirm("Você realmente deseja deletar esse usuário?");
         if (decision) {
             form.submit();
         }

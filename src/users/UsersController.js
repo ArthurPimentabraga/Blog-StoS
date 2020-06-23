@@ -40,6 +40,26 @@ router.post("/users/save", (req, res) => {
     });
 });
 
+router.post("/admin/users/delete", (req, res) => {
+    let id = req.body.userId;
+
+    if (id != undefined) {
+        if (!isNaN(id)) {
+            UserModel.destroy({
+                where: { id: id }
+            }).then(() => {
+                res.redirect("/admin/users");
+            })
+        }
+        else{
+            res.redirect("/admin/users");
+        }
+    }
+    else{
+        res.redirect("/admin/users");
+    }
+});
+
 router.get("/users/login", (req, res) => {
     res.render("admin/users/login");
 });

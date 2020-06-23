@@ -80,7 +80,7 @@ app.get("/:num?", (req, res) => {
     })
 });
 
-app.get("/:slug", (req, res) => {
+app.get("/article/:slug", (req, res) => {
     let slug = req.params.slug;
 
     ArticleModel.findOne({
@@ -99,13 +99,20 @@ app.get("/:slug", (req, res) => {
 
 app.get("/category/:slug", (req, res) => {
     let slug = req.params.slug;
+    let verifySession = req.session.user;
 
     CategoryModel.findOne({
         where: {slug: slug},
         include: [{model: ArticleModel}]
     }).then(category => {
         CategoryModel.findAll().then(categories => {
-            res.render('articlesForCategory', {articles: category.articles, categories: categories});
+            res.render('articlesForCategory', 
+            {
+                articles: category.articles, 
+                categories: categories, 
+                verifySession: verifySession,
+                slug: slug                
+            });
         });
     }).catch(() => {
         res.redirect('/');
