@@ -9,3 +9,5 @@ StoS (Student to Student) - Project for my NodeJS study
   - Sequelize
   - Ejs
 - Mysql
+
+[Video link of this project working](https://www.youtube.com/watch?v=O7eBSbz3y8o)
