@@ -10,4 +10,4 @@ StoS (Student to Student) - Project for my NodeJS study
   - Ejs
 - Mysql
 
-[Video link of this project working](https://www.youtube.com/watch?v=O7eBSbz3y8o)
+[![Vídeo](https://img.shields.io/badge/Video%20link-Youtube-red)](https://www.youtube.com/watch?v=O7eBSbz3y8o)
